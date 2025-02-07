@@ -1,0 +1,89 @@
+import SwiftUI
+
+struct ContentView: View {
+    
+    @State var inputIntA = 0
+    @State var inputIntB = 0
+    @State var inputIntC = 0
+    @State var inputIntD = 0
+    @State var inputIntE = 0
+    @State var addIntResults: Int?
+    
+    var body: some View {
+        
+        HStack {
+            VStack {
+                
+                textFieldViewA
+                textFieldViewB
+                textFieldViewC
+                textFieldViewD
+                textFieldViewE
+                
+                Button("Button") {
+                    addIntResults = inputIntA + inputIntB + inputIntC + inputIntD + inputIntE
+                }
+                .padding()
+                
+                if let addIntResult = addIntResults{
+                    Text("結果：\(addIntResult)")
+                }
+                
+            }
+            Spacer()
+        }
+        .padding()
+        Spacer()
+    }
+}
+
+#Preview {
+    ContentView()
+}
+
+
+
+extension ContentView {
+    
+    //テキストフィールド
+    var textFieldViewA: some View {
+        TextField("数字を入力", value: $inputIntA, format: .number)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .frame(width: 150)
+            .keyboardType(.numberPad)
+        
+    }
+    
+    var textFieldViewB: some View {
+        TextField("数字を入力", value: $inputIntB, format: .number)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .frame(width: 150)
+            .keyboardType(.numberPad)
+        
+    }
+    
+    var textFieldViewC: some View {
+        TextField("数字を入力", value: $inputIntC, format: .number)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .frame(width: 150)
+            .keyboardType(.numberPad)
+        
+    }
+    
+    var textFieldViewD: some View {
+        TextField("数字を入力", value: $inputIntD, format: .number)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .frame(width: 150)
+            .keyboardType(.numberPad)
+        
+    }
+    
+    var textFieldViewE: some View {
+        TextField("数字を入力", value: $inputIntE, format: .number)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .frame(width: 150)
+            .keyboardType(.numberPad)
+        
+    }
+    
+}
