@@ -1,0 +1,77 @@
+import SwiftUI
+
+struct kadai2: View {
+    
+    enum symbol: String, CaseIterable, Identifiable{
+        
+        case add = "+"
+        case sub = "-"
+        case mul = "×"
+        case div = "÷"
+        
+        var id: String { rawValue }
+    }
+    
+    @State var inputIntA = 0
+    @State var inputIntB = 0
+    @State var outputInt = 0
+    @State var outputString = ""
+    @State var selectSymbol = symbol.add
+    
+    var body: some View {
+        VStack {
+            
+            numberTextField(value: $inputIntA)
+            numberTextField(value: $inputIntB)
+            
+            Picker("演算子", selection: $selectSymbol) {
+                
+                ForEach(symbol.allCases) { symbols in
+                    Text(symbols.rawValue).tag(symbols)
+                }
+            }
+            .pickerStyle(.segmented)
+            .padding()
+            
+            Button("Button") {
+                
+                outputString = ""
+                
+                if selectSymbol == symbol.div && inputIntB == 0 {
+                    outputString = "割る数は0以外で入力してください"
+                    
+                } else if selectSymbol == symbol.add {
+                    outputInt = inputIntA + inputIntB
+                    
+                } else if selectSymbol == symbol.sub {
+                    outputInt = inputIntA - inputIntB
+                    
+                } else if selectSymbol == symbol.mul {
+                    outputInt = inputIntA * inputIntB
+                    
+                } else if selectSymbol == symbol.div {
+                    outputInt = inputIntA / inputIntB
+                }
+            }
+        }
+        .padding()
+        
+        if outputString == "" {
+            Text("結果：\(outputInt)")
+        } else {
+            Text(outputString)
+        }
+    }
+}
+
+
+#Preview {
+    kadai2()
+}
+
+private func numberTextField(value: Binding<Int>) -> some View {
+    TextField("数字を入力してください", value: value, format: .number)
+        .textFieldStyle(RoundedBorderTextFieldStyle())
+        .keyboardType(.numberPad)
+        .frame(width: 150)
+}
